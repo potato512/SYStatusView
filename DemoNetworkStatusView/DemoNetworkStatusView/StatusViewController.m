@@ -44,7 +44,7 @@
         [self setEdgesForExtendedLayout:UIRectEdgeNone];
     }
     
-    NSArray *array = @[@"开始", @"开始自定义", @"成功", @"成功无数据", @"失败", @"失败重新开始"];
+    NSArray *array = @[@"开始"];
     NSInteger count = array.count;
     for (int i = 0; i < count; i++)
     {
@@ -69,51 +69,45 @@
         self.statusView = [[SYNetworkStatusView alloc] initWithView:self.view];
     }
     
-    NSInteger index = button.tag;
-    if (0 == index)
+    if (arc4random() % 2 == 0)
     {
         [self.statusView statusloadStart];
-        [self performSelector:@selector(failueRestart) withObject:nil afterDelay:3.0];
     }
-    else if (1 == index)
+    else
     {
         [self.statusView statusloadStartCustom:@"loading..." image:[UIImage imageNamed:@"lock_normal"]];
-//        [self.statusView statusloadStartCustom:nil image:[UIImage imageNamed:@"lock_normal"]];
-        [self performSelector:@selector(failueRestart) withObject:nil afterDelay:3.0];
     }
-    else if (2 == index)
-    {
-        [self.statusView statusloadSueccess];
-    }
-    else if (3 == index)
-    {
-        [self.statusView statusloadSuccessWithoutData:@"success" image:[UIImage imageNamed:@"lock_right"]];
-//        [self.statusView statusloadSuccessWithoutData:nil image:[UIImage imageNamed:@"lock_right"]];
-    }
-    else if (4 == index)
-    {
-        [self.statusView statusloadFailue:@"failue" image:[UIImage imageNamed:@"lock_wrong"]];
-//        [self.statusView statusloadFailue:nil image:[UIImage imageNamed:@"lock_wrong"]];
-    }
-    else if (5 == index)
-    {
-//        [self.statusView statusloadFailueAndRestart:@"failue" image:[UIImage imageNamed:@"lock_wrong"]];
-        [self.statusView statusloadFailueAndRestart:nil image:[UIImage imageNamed:@"lock_wrong"]];
-        self.statusView.buttonClick = ^(){
-            NSLog(@"restart");
-        };
-    }
+    [self performSelector:@selector(resultFail) withObject:nil afterDelay:3.0];
 }
 
-- (void)failueRestart
+- (void)resultFail
 {
-    [self.statusView statusloadFailueAndRestart:@"failue" image:[UIImage imageNamed:@"lock_wrong"]];
-//    [self.statusView statusloadFailueAndRestart:nil image:[UIImage imageNamed:@"lock_wrong"]];
+    if (arc4random() % 2 == 0)
+    {
+        [self.statusView statusloadFailueAndRestart:@"failue" image:[UIImage imageNamed:@"lock_wrong"]];
+    }
+    else
+    {
+        [self.statusView statusloadFailueAndRestart:nil image:[UIImage imageNamed:@"lock_wrong"]];
+    }
+    
     StatusViewController __weak *selfWeak = self;
     self.statusView.buttonClick = ^(){
         NSLog(@"restart");
-        [selfWeak performSelector:@selector(failueRestart) withObject:nil afterDelay:3.0];
+        [selfWeak performSelector:@selector(resultSuccess) withObject:nil afterDelay:3.0];
     };
+}
+
+- (void)resultSuccess
+{
+    if (arc4random() % 2 == 0)
+    {
+        [self.statusView statusloadSueccess];
+    }
+    else
+    {
+        [self.statusView statusloadSuccessWithoutData:@"success" image:[UIImage imageNamed:@"lock_right"]];
+    }
 }
 
 @end

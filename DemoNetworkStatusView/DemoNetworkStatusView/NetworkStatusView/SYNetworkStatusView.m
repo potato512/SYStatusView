@@ -57,6 +57,7 @@ static CGFloat const heightButton = 20.0;
         
         self.frame = view.bounds;
         [view addSubview:self];
+        self.autoresizingMask = (UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin);
         
         self.backgroundColor = view.backgroundColor;
         
@@ -88,6 +89,7 @@ static CGFloat const heightButton = 20.0;
     {
         [self.superView addSubview:self];
     }
+    [self.superView bringSubviewToFront:self];
     
     self.activityView.hidden = YES;
     self.iconImageView.hidden = YES;

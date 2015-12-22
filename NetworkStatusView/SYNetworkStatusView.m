@@ -57,6 +57,7 @@ static CGFloat const heightButton = 20.0;
         
         self.frame = view.bounds;
         [view addSubview:self];
+        self.autoresizingMask = (UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin);
         
         self.backgroundColor = view.backgroundColor;
         
@@ -73,7 +74,7 @@ static CGFloat const heightButton = 20.0;
         self.messagelabel.frame = CGRectMake(originXY, (currentView.frame.origin.y + currentView.frame.size.height + originXY), (CGRectGetWidth(self.bounds) - originXY * 2), heightlabel);
         [self addSubview:self.messagelabel];
         self.messagelabel.hidden = YES;
-    
+        
         currentView = self.messagelabel;
         
         self.reStartButton.frame = CGRectMake(((CGRectGetWidth(self.bounds) - widthButton) / 2), (currentView.frame.origin.y + currentView.frame.size.height + originXY), widthButton, heightButton);
@@ -88,6 +89,7 @@ static CGFloat const heightButton = 20.0;
     {
         [self.superView addSubview:self];
     }
+    [self.superView bringSubviewToFront:self];
     
     self.activityView.hidden = YES;
     self.iconImageView.hidden = YES;
@@ -105,15 +107,15 @@ static CGFloat const heightButton = 20.0;
     self.iconImageView.hidden = NO;
     CGRect rectImage = self.iconImageView.frame;
     rectImage.origin.y = originyWithMessage;
-
+    
     self.messagelabel.hidden = NO;
     CGRect rectlabel = self.messagelabel.frame;
     rectlabel.origin.y = (originyWithMessage + self.iconImageView.frame.size.height + originXY);
-
+    
     if (!message || 0 == message.length)
     {
         rectImage.origin.y = originY;
-
+        
         rectlabel.origin.y = (originyWithMessage + self.iconImageView.frame.size.height + originXY);
         rectlabel.size.height = 0.0;
         self.messagelabel.hidden = YES;
@@ -192,11 +194,11 @@ static CGFloat const heightButton = 20.0;
     self.iconImageView.hidden = NO;
     CGRect rectImage = self.iconImageView.frame;
     rectImage.origin.y = originYWithMessageAndButon;
-
+    
     self.messagelabel.hidden = NO;
     CGRect rectlabel = self.messagelabel.frame;
     rectlabel.origin.y = (originYWithMessageAndButon + self.iconImageView.frame.size.height + originXY);
-
+    
     if (!message || 0 == message.length)
     {
         rectImage.origin.y = originyWithButton;
@@ -207,9 +209,9 @@ static CGFloat const heightButton = 20.0;
     }
     
     self.iconImageView.frame = rectImage;
-
+    
     self.messagelabel.frame = rectlabel;
-
+    
     self.reStartButton.hidden = NO;
     CGRect rectButton = self.reStartButton.frame;
     rectButton.origin.y = (self.messagelabel.frame.origin.y + self.messagelabel.frame.size.height + originXY);
