@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		A7A590D71F6B627D00848BE7 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7A590D61F6B627D00848BE7 /* RootViewController.m */; };
+		A7C3E5AC1F6B7B2200BF48AA /* SYMessageView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7C3E5A91F6B7B2200BF48AA /* SYMessageView.m */; };
+		A7C3E5AD1F6B7B2200BF48AA /* SYNetworkStatusView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7C3E5AB1F6B7B2200BF48AA /* SYNetworkStatusView.m */; };
 		A7F2B8AC1BEDF5DF002346F4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F2B8AB1BEDF5DF002346F4 /* main.m */; };
 		A7F2B8AF1BEDF5DF002346F4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F2B8AE1BEDF5DF002346F4 /* AppDelegate.m */; };
 		A7F2B8B21BEDF5DF002346F4 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F2B8B11BEDF5DF002346F4 /* ViewController.m */; };
@@ -15,8 +17,6 @@
 		A7F2B8B71BEDF5DF002346F4 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A7F2B8B61BEDF5DF002346F4 /* Images.xcassets */; };
 		A7F2B8BA1BEDF5DF002346F4 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = A7F2B8B81BEDF5DF002346F4 /* LaunchScreen.xib */; };
 		A7F2B8C61BEDF5DF002346F4 /* DemoNetworkStatusViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F2B8C51BEDF5DF002346F4 /* DemoNetworkStatusViewTests.m */; };
-		A7F2B8D21BEDF6CC002346F4 /* SYNetworkStatusView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F2B8D11BEDF6CC002346F4 /* SYNetworkStatusView.m */; };
-		A7F2B8D51BEDF771002346F4 /* SYMessageView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F2B8D41BEDF771002346F4 /* SYMessageView.m */; };
 		A7F2B8D91BEE5356002346F4 /* lock_normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F2B8D61BEE5356002346F4 /* lock_normal@2x.png */; };
 		A7F2B8DA1BEE5356002346F4 /* lock_right@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F2B8D71BEE5356002346F4 /* lock_right@2x.png */; };
 		A7F2B8DB1BEE5356002346F4 /* lock_wrong@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F2B8D81BEE5356002346F4 /* lock_wrong@2x.png */; };
@@ -36,6 +36,10 @@
 /* Begin PBXFileReference section */
 		A7A590D51F6B627D00848BE7 /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
 		A7A590D61F6B627D00848BE7 /* RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
+		A7C3E5A81F6B7B2200BF48AA /* SYMessageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SYMessageView.h; sourceTree = "<group>"; };
+		A7C3E5A91F6B7B2200BF48AA /* SYMessageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SYMessageView.m; sourceTree = "<group>"; };
+		A7C3E5AA1F6B7B2200BF48AA /* SYNetworkStatusView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SYNetworkStatusView.h; sourceTree = "<group>"; };
+		A7C3E5AB1F6B7B2200BF48AA /* SYNetworkStatusView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SYNetworkStatusView.m; sourceTree = "<group>"; };
 		A7F2B8A61BEDF5DF002346F4 /* DemoNetworkStatusView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DemoNetworkStatusView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A7F2B8AA1BEDF5DF002346F4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A7F2B8AB1BEDF5DF002346F4 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -49,10 +53,6 @@
 		A7F2B8BF1BEDF5DF002346F4 /* DemoNetworkStatusViewTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DemoNetworkStatusViewTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A7F2B8C41BEDF5DF002346F4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A7F2B8C51BEDF5DF002346F4 /* DemoNetworkStatusViewTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DemoNetworkStatusViewTests.m; sourceTree = "<group>"; };
-		A7F2B8D01BEDF6CC002346F4 /* SYNetworkStatusView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SYNetworkStatusView.h; sourceTree = "<group>"; };
-		A7F2B8D11BEDF6CC002346F4 /* SYNetworkStatusView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SYNetworkStatusView.m; sourceTree = "<group>"; };
-		A7F2B8D31BEDF771002346F4 /* SYMessageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SYMessageView.h; sourceTree = "<group>"; };
-		A7F2B8D41BEDF771002346F4 /* SYMessageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SYMessageView.m; sourceTree = "<group>"; };
 		A7F2B8D61BEE5356002346F4 /* lock_normal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lock_normal@2x.png"; sourceTree = "<group>"; };
 		A7F2B8D71BEE5356002346F4 /* lock_right@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lock_right@2x.png"; sourceTree = "<group>"; };
 		A7F2B8D81BEE5356002346F4 /* lock_wrong@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lock_wrong@2x.png"; sourceTree = "<group>"; };
@@ -78,6 +78,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A7C3E5A71F6B7B2200BF48AA /* SYNetworkStatusView */ = {
+			isa = PBXGroup;
+			children = (
+				A7C3E5A81F6B7B2200BF48AA /* SYMessageView.h */,
+				A7C3E5A91F6B7B2200BF48AA /* SYMessageView.m */,
+				A7C3E5AA1F6B7B2200BF48AA /* SYNetworkStatusView.h */,
+				A7C3E5AB1F6B7B2200BF48AA /* SYNetworkStatusView.m */,
+			);
+			name = SYNetworkStatusView;
+			path = ../../SYNetworkStatusView;
+			sourceTree = "<group>";
+		};
 		A7F2B89D1BEDF5DF002346F4 = {
 			isa = PBXGroup;
 			children = (
@@ -107,10 +119,10 @@
 				A7F2B8B11BEDF5DF002346F4 /* ViewController.m */,
 				A7F2B8DC1BEE6A25002346F4 /* StatusViewController.h */,
 				A7F2B8DD1BEE6A25002346F4 /* StatusViewController.m */,
+				A7C3E5A71F6B7B2200BF48AA /* SYNetworkStatusView */,
 				A7F2B8D61BEE5356002346F4 /* lock_normal@2x.png */,
 				A7F2B8D71BEE5356002346F4 /* lock_right@2x.png */,
 				A7F2B8D81BEE5356002346F4 /* lock_wrong@2x.png */,
-				A7F2B8CF1BEDF656002346F4 /* NetworkStatusView */,
 				A7F2B8A91BEDF5DF002346F4 /* Supporting Files */,
 			);
 			path = DemoNetworkStatusView;
@@ -143,17 +155,6 @@
 				A7F2B8C41BEDF5DF002346F4 /* Info.plist */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		A7F2B8CF1BEDF656002346F4 /* NetworkStatusView */ = {
-			isa = PBXGroup;
-			children = (
-				A7F2B8D01BEDF6CC002346F4 /* SYNetworkStatusView.h */,
-				A7F2B8D11BEDF6CC002346F4 /* SYNetworkStatusView.m */,
-				A7F2B8D31BEDF771002346F4 /* SYMessageView.h */,
-				A7F2B8D41BEDF771002346F4 /* SYMessageView.m */,
-			);
-			path = NetworkStatusView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -259,13 +260,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A7F2B8D51BEDF771002346F4 /* SYMessageView.m in Sources */,
+				A7C3E5AC1F6B7B2200BF48AA /* SYMessageView.m in Sources */,
 				A7A590D71F6B627D00848BE7 /* RootViewController.m in Sources */,
 				A7F2B8B21BEDF5DF002346F4 /* ViewController.m in Sources */,
-				A7F2B8D21BEDF6CC002346F4 /* SYNetworkStatusView.m in Sources */,
 				A7F2B8AF1BEDF5DF002346F4 /* AppDelegate.m in Sources */,
 				A7F2B8DE1BEE6A25002346F4 /* StatusViewController.m in Sources */,
 				A7F2B8AC1BEDF5DF002346F4 /* main.m in Sources */,
+				A7C3E5AD1F6B7B2200BF48AA /* SYNetworkStatusView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
