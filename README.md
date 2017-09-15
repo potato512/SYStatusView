@@ -84,6 +84,15 @@ statusView.messageLabel.textColor = [UIColor redColor];
 
 
 ## 修改完善
+* 20170915
+  * 版本号：1.1.0
+  * 新增重置位置大小方法
+
+~~~ javascript
+/// 重置视图位置与大小
+- (void)reloadFrame:(CGRect)rect;
+~~~
+
 * 20170914
   * 版本号：1.0.0
   

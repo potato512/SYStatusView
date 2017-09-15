@@ -12,8 +12,8 @@
 #define heightMainScreen [UIScreen mainScreen].bounds.size.height
 #define viewWindow       [[UIApplication sharedApplication].delegate window]
 
-#define widthSelf  self.frame.size.width
-#define heightSelf self.frame.size.height
+#define widthSelf  bgroundView.frame.size.width
+#define heightSelf bgroundView.frame.size.height
 
 static CGFloat const originXY     = 10.0;
 static CGFloat const heightlabel  = 30.0;
@@ -21,6 +21,10 @@ static CGFloat const widthButton  = 60.0;
 static CGFloat const heightButton = 25.0;
 
 @interface SYNetworkStatusView ()
+{
+    UIView *bgroundView;
+    BOOL isReloadFrame;
+}
 
 @property (nonatomic, strong) UIView *superView;
 @property (nonatomic, assign) BOOL isActivity;
@@ -44,6 +48,13 @@ static CGFloat const heightButton = 25.0;
     if (self)
     {
         [self setUI:view];
+        
+        // 初始化信息
+        _showButtonFullScreen = NO;
+        _sizeImage = CGSizeMake(120.0, 120.0);
+        _animationTime = 0.6;
+        
+        isReloadFrame = NO;
     }
     
     return self;
@@ -63,9 +74,9 @@ static CGFloat const heightButton = 25.0;
         
         self.backgroundColor = view.backgroundColor;
         
-        _showButtonFullScreen = NO;
-        _sizeImage = CGSizeMake(120.0, 120.0);
-        _animationTime = 0.6;
+        bgroundView = [[UIView alloc] initWithFrame:self.bounds];
+        [self addSubview:bgroundView];
+        bgroundView.backgroundColor = self.backgroundColor;
     }
 }
 
@@ -144,7 +155,7 @@ static CGFloat const heightButton = 25.0;
             heightTotal += self.button.frame.size.height;
         }
         
-        CGFloat originYTotal = (heightSelf - heightTotal) / 2;
+        CGFloat originYTotal = (isReloadFrame ? 0.0 : (heightSelf - heightTotal) / 2);
         UIView *currentView = nil;
         if (!self.imageView.hidden)
         {
@@ -191,8 +202,17 @@ static CGFloat const heightButton = 25.0;
     }
     else
     {
-        self.activityView.center = CGPointMake(widthSelf / 2, heightSelf / 2);
+        self.activityView.center = CGPointMake(widthSelf / 2, (isReloadFrame ? 0.0 : heightSelf / 2));
     }
+}
+
+/// 重置视图位置与大小
+- (void)reloadFrame:(CGRect)rect
+{
+    bgroundView.frame = rect;
+    isReloadFrame = YES;
+    
+    [self reloadUIFrame];
 }
 
 #pragma mark - 状态
@@ -318,7 +338,7 @@ static CGFloat const heightButton = 25.0;
         _activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
         _activityView.backgroundColor = [UIColor clearColor];
         
-        [self addSubview:_activityView];
+        [bgroundView addSubview:_activityView];
         
         _activityView.color = [UIColor redColor];
     }
@@ -333,7 +353,7 @@ static CGFloat const heightButton = 25.0;
         _imageView = [[UIImageView alloc] init];
         _imageView.backgroundColor = [UIColor clearColor];
         
-        [self addSubview:_imageView];
+        [bgroundView addSubview:_imageView];
         _imageView.frame = CGRectMake((widthSelf - self.sizeImage.width) / 2, 0.0, self.sizeImage.width, self.sizeImage.height);
         
         _imageView.contentMode = UIViewContentModeScaleAspectFit;
@@ -350,7 +370,7 @@ static CGFloat const heightButton = 25.0;
         _messagelabel = [[UILabel alloc] init];
         _messagelabel.backgroundColor = [UIColor clearColor];
         
-        [self addSubview:_messagelabel];
+        [bgroundView addSubview:_messagelabel];
         _messagelabel.frame = CGRectMake(originXY, 0.0, (widthSelf - originXY * 2), heightlabel);
         
         _messagelabel.textColor = [UIColor colorWithWhite:0.0 alpha:0.6];
@@ -367,7 +387,7 @@ static CGFloat const heightButton = 25.0;
         _button = [UIButton buttonWithType:UIButtonTypeCustom];
         _button.backgroundColor = [UIColor clearColor];
         
-        [self addSubview:_button];
+        [bgroundView addSubview:_button];
         _button.frame = CGRectMake(((widthSelf - widthButton) / 2), 0.0, widthButton, heightButton);
         
         _button.layer.cornerRadius = 5.0;

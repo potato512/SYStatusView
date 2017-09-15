@@ -31,6 +31,9 @@
 /// 按钮属性设置（字体大小、字体颜色等）
 @property (nonatomic, strong, readonly) UIButton *reloadButton;
 
+/// 重置视图位置与大小
+- (void)reloadFrame:(CGRect)rect;
+
 
 /**
  *  开始（默认：菊花转）

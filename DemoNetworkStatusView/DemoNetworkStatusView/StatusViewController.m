@@ -116,6 +116,8 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (0 == indexPath.section)
     {
+        self.statusView.sizeImage = CGSizeMake(80.0, 80.0);
+        [self.statusView reloadFrame:CGRectMake((self.view.frame.size.width - 200.0) / 2, 100.0, 200.0, 200.0)];
         [self.statusView loadStart];
     }
     else if (1 == indexPath.section)
@@ -136,7 +138,6 @@
     }
     else if (4 == indexPath.section)
     {
-        self.statusView.sizeImage = CGSizeMake(80.0, 80.0);
         [self.statusView loadStart:@"加载中..." image:@[[UIImage imageNamed:@"lock_normal"]]];
     }
     else if (5 == indexPath.section)
