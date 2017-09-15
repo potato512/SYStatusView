@@ -1,6 +1,6 @@
 //
 //  SYNetworkStatusView.m
-//  DemoNetworkStatusView
+//  zhangshaoyu
 //
 //  Created by zhangshaoyu on 15/11/7.
 //  Copyright (c) 2015年 zhangshaoyu. All rights reserved.
@@ -12,27 +12,27 @@
 #define heightMainScreen [UIScreen mainScreen].bounds.size.height
 #define viewWindow       [[UIApplication sharedApplication].delegate window]
 
-static CGFloat const originXY     = 0.0;
-static CGFloat const sizeImage    = 120.0;
-static CGFloat const heightlabel  = 40.0;
+#define widthSelf  self.frame.size.width
+#define heightSelf self.frame.size.height
+
+static CGFloat const originXY     = 10.0;
+static CGFloat const heightlabel  = 30.0;
 static CGFloat const widthButton  = 60.0;
-static CGFloat const heightButton = 20.0;
-#define originY                    ((CGRectGetHeight(self.bounds) - sizeImage) / 2)
-#define originyWithMessage         ((CGRectGetHeight(self.bounds) - (sizeImage + heightlabel + originXY)) / 2)
-#define originyWithButton          ((CGRectGetHeight(self.bounds) - (sizeImage + heightButton + originXY)) / 2)
-#define originYWithMessageAndButon ((CGRectGetHeight(self.bounds) - (sizeImage + heightlabel + originXY * 2 + heightButton)) / 2)
+static CGFloat const heightButton = 25.0;
 
 @interface SYNetworkStatusView ()
 
 @property (nonatomic, strong) UIView *superView;
 @property (nonatomic, assign) BOOL isActivity;
-@property (nonatomic, strong) UIImage *image;
+@property (nonatomic, strong) NSArray <UIImage *> *images;
 @property (nonatomic, strong) NSString *message;
 
 @property (nonatomic, strong) UIActivityIndicatorView *activityView;
-@property (nonatomic, strong) UIImageView *iconImageView;
+@property (nonatomic, strong) UIImageView *imageView;
 @property (nonatomic, strong) UILabel *messagelabel;
-@property (nonatomic, strong) UIButton *reStartButton;
+@property (nonatomic, strong) UIButton *button;
+
+@property (nonatomic, copy) void (^clickBlock)(void);
 
 @end
 
@@ -49,6 +49,8 @@ static CGFloat const heightButton = 20.0;
     return self;
 }
 
+#pragma mark - 视图
+
 - (void)setUI:(UIView *)view
 {
     if (!self.superView && view)
@@ -61,25 +63,9 @@ static CGFloat const heightButton = 20.0;
         
         self.backgroundColor = view.backgroundColor;
         
-        self.activityView.center = CGPointMake((CGRectGetWidth(self.bounds) / 2), (CGRectGetHeight(self.bounds) / 2));
-        [self addSubview:self.activityView];
-        self.activityView.hidden = YES;
-        
-        self.iconImageView.frame = CGRectMake(((CGRectGetWidth(self.bounds) - sizeImage) / 2), originYWithMessageAndButon, sizeImage, sizeImage);
-        [self addSubview:self.iconImageView];
-        self.iconImageView.hidden = YES;
-        
-        UIView *currentView = self.iconImageView;
-        
-        self.messagelabel.frame = CGRectMake(originXY, (currentView.frame.origin.y + currentView.frame.size.height + originXY), (CGRectGetWidth(self.bounds) - originXY * 2), heightlabel);
-        [self addSubview:self.messagelabel];
-        self.messagelabel.hidden = YES;
-    
-        currentView = self.messagelabel;
-        
-        self.reStartButton.frame = CGRectMake(((CGRectGetWidth(self.bounds) - widthButton) / 2), (currentView.frame.origin.y + currentView.frame.size.height + originXY), widthButton, heightButton);
-        [self addSubview:self.reStartButton];
-        self.reStartButton.hidden = YES;
+        _showButtonFullScreen = NO;
+        _sizeImage = CGSizeMake(120.0, 120.0);
+        _animationTime = 0.6;
     }
 }
 
@@ -92,47 +78,168 @@ static CGFloat const heightButton = 20.0;
     [self.superView bringSubviewToFront:self];
     
     self.activityView.hidden = YES;
-    self.iconImageView.hidden = YES;
+    self.imageView.hidden = YES;
     self.messagelabel.hidden = YES;
-    self.reStartButton.hidden = YES;
+    self.button.hidden = YES;
 }
 
-- (void)setStatusUI:(NSString *)message image:(UIImage *)image
+- (void)resetUI:(NSString *)message image:(NSArray <UIImage *> *)images
 {
     [self resetUI];
     
-    self.iconImageView.image = image;
-    self.messagelabel.text = message;
-    
-    self.iconImageView.hidden = NO;
-    CGRect rectImage = self.iconImageView.frame;
-    rectImage.origin.y = originyWithMessage;
-
-    self.messagelabel.hidden = NO;
-    CGRect rectlabel = self.messagelabel.frame;
-    rectlabel.origin.y = (originyWithMessage + self.iconImageView.frame.size.height + originXY);
-
-    if (!message || 0 == message.length)
+    // 图标
+    if (images && 0 < images.count)
     {
-        rectImage.origin.y = originY;
-
-        rectlabel.origin.y = (originyWithMessage + self.iconImageView.frame.size.height + originXY);
-        rectlabel.size.height = 0.0;
-        self.messagelabel.hidden = YES;
+        self.imageView.hidden = NO;
+        
+        if (1 == images.count)
+        {
+            self.imageView.image = images.firstObject;
+            
+            if ([self.imageView isAnimating])
+            {
+                [self.imageView stopAnimating];
+                self.imageView.animationImages = nil;
+            }
+        }
+        else if (1 < images.count)
+        {
+            self.imageView.animationDuration = _animationTime;
+            self.imageView.animationImages = images;
+            [self.imageView startAnimating];
+            
+            self.imageView.image = nil;
+        }
     }
     
-    self.iconImageView.frame = rectImage;
-    
-    self.messagelabel.frame = rectlabel;
+    // 提示语
+    if (message && 0 < message.length)
+    {
+        self.messagelabel.hidden = NO;
+        
+        self.messagelabel.text = message;
+    }
 }
 
-- (void)statusloadedFinish
+- (void)reloadUIFrame
+{
+    if (self.activityView.hidden)
+    {
+        CGFloat heightTotal = 0.0;
+        if (!self.imageView.hidden)
+        {
+            CGRect rectImage = self.imageView.frame;
+            rectImage.size = self.sizeImage;
+            rectImage.origin.x = (widthSelf - self.sizeImage.width) / 2;
+            self.imageView.frame = rectImage;
+            
+            heightTotal += self.imageView.frame.size.height;
+        }
+        if (!self.messagelabel.hidden)
+        {
+            heightTotal += self.messagelabel.frame.size.height;
+        }
+        if (!self.button.hidden && !self.showButtonFullScreen)
+        {
+            heightTotal += self.button.frame.size.height;
+        }
+        
+        CGFloat originYTotal = (heightSelf - heightTotal) / 2;
+        UIView *currentView = nil;
+        if (!self.imageView.hidden)
+        {
+            CGRect rectImage = self.imageView.frame;
+            rectImage.origin.y = originYTotal;
+            self.imageView.frame = rectImage;
+            
+            currentView = self.imageView;
+        }
+        if (!self.messagelabel.hidden)
+        {
+            CGRect rectLabel = self.messagelabel.frame;
+            rectLabel.origin.y = originYTotal;
+            if (!self.imageView.hidden)
+            {
+                rectLabel.origin.y = (currentView.frame.origin.y + currentView.frame.size.height);
+            }
+            self.messagelabel.frame = rectLabel;
+            
+            currentView = self.messagelabel;
+        }
+        if (!self.button.hidden)
+        {
+            CGRect rectButton = self.button.frame;
+            if (self.showButtonFullScreen)
+            {
+                rectButton = self.bounds;
+                
+                self.button.layer.cornerRadius = 0.0;
+                self.button.layer.borderColor = [UIColor clearColor].CGColor;
+                self.button.layer.borderWidth = 0.0;
+                [self.button setTitle:@"" forState:UIControlStateNormal];
+            }
+            else
+            {
+                rectButton.origin.y = originYTotal;
+                if (!self.imageView.hidden || !self.messagelabel.hidden)
+                {
+                    rectButton.origin.y = (currentView.frame.origin.y + currentView.frame.size.height);
+                }
+            }
+            self.button.frame = rectButton;
+        }
+    }
+    else
+    {
+        self.activityView.center = CGPointMake(widthSelf / 2, heightSelf / 2);
+    }
+}
+
+#pragma mark - 状态
+
+#pragma mark 开始
+
+// 开始（菊花转）
+- (void)loadStart
+{
+    [self resetUI];
+    
+    self.isActivity = YES;
+
+    [self.activityView startAnimating];
+    self.activityView.hidden = NO;
+    
+    [self reloadUIFrame];
+}
+
+// 开始（自定义）
+- (void)loadStart:(NSString *)message image:(NSArray <UIImage *> *)images
+{
+    self.message = message;
+    self.images = images;
+    
+    [self resetUI:message image:images];
+    
+    [self reloadUIFrame];
+}
+
+#pragma mark 成功
+
+// 结束，加载成功
+- (void)loadSueccess
 {
     if (self.isActivity)
     {
         if ([self.activityView isAnimating])
         {
             [self.activityView stopAnimating];
+        }
+    }
+    else
+    {
+        if ([self.imageView isAnimating])
+        {
+            [self.imageView stopAnimating];
         }
     }
     
@@ -142,133 +249,110 @@ static CGFloat const heightButton = 20.0;
     }
 }
 
-#pragma mark - 网络状态
-
-// 开始（菊花转）
-- (void)statusloadStart
-{
-    [self resetUI];
-    
-    self.isActivity = YES;
-    
-    self.activityView.color = [UIColor redColor];
-    [self.activityView startAnimating];
-    self.activityView.hidden = NO;
-}
-
-// 开始（自定义）
-- (void)statusloadStartCustom:(NSString *)message image:(UIImage *)image
-{
-    self.message = message;
-    self.image = image;
-    
-    [self setStatusUI:message image:image];
-}
-
-// 结束，加载成功
-- (void)statusloadSueccess
-{
-    [self statusloadedFinish];
-}
-
 // 结束，加载成功，无数据
-- (void)statusloadSuccessWithoutData:(NSString *)message image:(UIImage *)image
+- (void)loadSuccessWithoutData:(NSString *)message image:(NSArray<UIImage *> *)images
 {
-    [self setStatusUI:message image:image];
+    [self resetUI:message image:images];
+    
+    [self reloadUIFrame];
 }
+
+// 结束，加载成功，无数据，重新加载
+- (void)loadSuccessWithoutData:(NSString *)message image:(NSArray<UIImage *> *)images click:(void (^)(void))click
+{
+    [self resetUI:message image:images];
+    
+    self.button.hidden = NO;
+    self.clickBlock = [click copy];
+
+    [self reloadUIFrame];
+}
+
+#pragma mark 失败
 
 // 结束，加载失败
-- (void)statusloadFailue:(NSString *)message image:(UIImage *)image
+- (void)loadFailue:(NSString *)message image:(NSArray<UIImage *> *)images
 {
-    [self setStatusUI:message image:image];
+    [self resetUI:message image:images];
+    
+    [self reloadUIFrame];
 }
 
-// 结束，加载失败（重新加载）
-- (void)statusloadFailueAndRestart:(NSString *)message image:(UIImage *)image
+- (void)loadFailue:(NSString *)message image:(NSArray<UIImage *> *)images click:(void (^)(void))click
 {
-    [self resetUI];
+    [self resetUI:message image:images];
     
-    self.iconImageView.image = image;
-    self.messagelabel.text = message;
+    self.button.hidden = NO;
+    self.clickBlock = [click copy];
     
-    self.iconImageView.hidden = NO;
-    CGRect rectImage = self.iconImageView.frame;
-    rectImage.origin.y = originYWithMessageAndButon;
-
-    self.messagelabel.hidden = NO;
-    CGRect rectlabel = self.messagelabel.frame;
-    rectlabel.origin.y = (originYWithMessageAndButon + self.iconImageView.frame.size.height + originXY);
-
-    if (!message || 0 == message.length)
-    {
-        rectImage.origin.y = originyWithButton;
-        
-        rectlabel.origin.y = (originyWithButton + self.iconImageView.frame.size.height + originXY);
-        rectlabel.size.height = 0.0;
-        self.messagelabel.hidden = YES;
-    }
-    
-    self.iconImageView.frame = rectImage;
-
-    self.messagelabel.frame = rectlabel;
-
-    self.reStartButton.hidden = NO;
-    CGRect rectButton = self.reStartButton.frame;
-    rectButton.origin.y = (self.messagelabel.frame.origin.y + self.messagelabel.frame.size.height + originXY);
-    self.reStartButton.frame = rectButton;
-    [self.reStartButton addTarget:self action:@selector(buttonRestart:) forControlEvents:UIControlEventTouchUpInside];
+    [self reloadUIFrame];
 }
 
 #pragma mark - 响应
 
-- (void)buttonRestart:(UIButton *)button
+- (void)buttonClick:(UIButton *)button
 {
     if (self.isActivity)
     {
-        [self statusloadStart];
+        [self loadStart];
     }
     else
     {
-        [self statusloadStartCustom:self.message image:self.image];
+        [self loadStart:self.message image:self.images];
     }
     
-    if (self.buttonClick)
+    if (self.clickBlock)
     {
-        self.buttonClick();
+        self.clickBlock();
     }
 }
 
 #pragma mark - setter
 
+#pragma mark - getter
+
 - (UIActivityIndicatorView *)activityView
 {
-    if (!_activityView)
+    if (_activityView == nil)
     {
         _activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
         _activityView.backgroundColor = [UIColor clearColor];
+        
+        [self addSubview:_activityView];
+        
+        _activityView.color = [UIColor redColor];
     }
     
     return _activityView;
 }
 
-- (UIImageView *)iconImageView
+- (UIImageView *)imageView
 {
-    if (!_iconImageView)
+    if (_imageView == nil)
     {
-        _iconImageView = [[UIImageView alloc] init];
-        _iconImageView.contentMode = UIViewContentModeScaleAspectFit;
-        _iconImageView.backgroundColor = [UIColor clearColor];
+        _imageView = [[UIImageView alloc] init];
+        _imageView.backgroundColor = [UIColor clearColor];
+        
+        [self addSubview:_imageView];
+        _imageView.frame = CGRectMake((widthSelf - self.sizeImage.width) / 2, 0.0, self.sizeImage.width, self.sizeImage.height);
+        
+        _imageView.contentMode = UIViewContentModeScaleAspectFit;
+        
     }
     
-    return _iconImageView;
+    return _imageView;
 }
 
 - (UILabel *)messagelabel
 {
-    if (!_messagelabel)
+    if (_messagelabel == nil)
     {
         _messagelabel = [[UILabel alloc] init];
         _messagelabel.backgroundColor = [UIColor clearColor];
+        
+        [self addSubview:_messagelabel];
+        _messagelabel.frame = CGRectMake(originXY, 0.0, (widthSelf - originXY * 2), heightlabel);
+        
         _messagelabel.textColor = [UIColor colorWithWhite:0.0 alpha:0.6];
         _messagelabel.textAlignment = NSTextAlignmentCenter;
     }
@@ -276,24 +360,40 @@ static CGFloat const heightButton = 20.0;
     return _messagelabel;
 }
 
-- (UIButton *)reStartButton
+- (UIButton *)button
 {
-    if (!_reStartButton)
+    if (_button == nil)
     {
-        _reStartButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        _reStartButton.backgroundColor = [UIColor clearColor];
+        _button = [UIButton buttonWithType:UIButtonTypeCustom];
+        _button.backgroundColor = [UIColor clearColor];
         
-        _reStartButton.layer.cornerRadius = 5.0;
-        _reStartButton.layer.borderColor = [UIColor colorWithWhite:0.0 alpha:0.5].CGColor;
-        _reStartButton.layer.borderWidth = 0.5;
+        [self addSubview:_button];
+        _button.frame = CGRectMake(((widthSelf - widthButton) / 2), 0.0, widthButton, heightButton);
         
-        [_reStartButton setTitle:@"重新加载" forState:UIControlStateNormal];
-        _reStartButton.titleLabel.font = [UIFont systemFontOfSize:12.0];
-        [_reStartButton setTitleColor:[UIColor colorWithWhite:0.0 alpha:0.5] forState:UIControlStateNormal];
-        [_reStartButton setTitleColor:[UIColor colorWithWhite:0.0 alpha:0.2] forState:UIControlStateHighlighted];
+        _button.layer.cornerRadius = 5.0;
+        _button.layer.borderColor = [UIColor colorWithWhite:0.0 alpha:0.5].CGColor;
+        _button.layer.borderWidth = 0.5;
+        _button.layer.masksToBounds = YES;
+        
+        [_button setTitle:@"重新加载" forState:UIControlStateNormal];
+        _button.titleLabel.font = [UIFont systemFontOfSize:12.0];
+        [_button setTitleColor:[UIColor colorWithWhite:0.0 alpha:0.5] forState:UIControlStateNormal];
+        [_button setTitleColor:[UIColor colorWithWhite:0.0 alpha:0.2] forState:UIControlStateHighlighted];
+        
+        [_button addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
     }
     
-    return _reStartButton;
+    return _button;
+}
+
+- (UIButton *)reloadButton
+{
+    return self.button;
+}
+
+- (UILabel *)messageLabel
+{
+    return self.messagelabel;
 }
 
 @end
