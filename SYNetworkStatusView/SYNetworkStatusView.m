@@ -246,7 +246,7 @@ static CGFloat const heightButton = 25.0;
 #pragma mark 成功
 
 // 结束，加载成功
-- (void)loadSueccess
+- (void)loadSuccess
 {
     if (self.isActivity)
     {
