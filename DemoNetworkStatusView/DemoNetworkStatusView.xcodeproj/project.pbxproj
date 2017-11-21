@@ -7,19 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A77CD3771FC4135D0065E96D /* SYMessageView.m in Sources */ = {isa = PBXBuildFile; fileRef = A77CD36D1FC412A40065E96D /* SYMessageView.m */; };
+		A77CD3781FC4135D0065E96D /* UIView+Status.m in Sources */ = {isa = PBXBuildFile; fileRef = A77CD36F1FC412A40065E96D /* UIView+Status.m */; };
+		A77CD3791FC413BA0065E96D /* status_failure@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A77CD3711FC412AC0065E96D /* status_failure@2x.png */; };
+		A77CD37A1FC413BE0065E96D /* status_failure@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A77CD3721FC412AC0065E96D /* status_failure@3x.png */; };
+		A77CD37B1FC413C00065E96D /* status_NetworkWrong@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A77CD3731FC412AC0065E96D /* status_NetworkWrong@2x.png */; };
+		A77CD37C1FC413C30065E96D /* status_NetworkWrong@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A77CD3741FC412AC0065E96D /* status_NetworkWrong@3x.png */; };
+		A77CD37D1FC413C50065E96D /* status_Success@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A77CD3751FC412AC0065E96D /* status_Success@2x.png */; };
+		A77CD37E1FC413C70065E96D /* status_Success@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A77CD3761FC412AC0065E96D /* status_Success@3x.png */; };
 		A7A590D71F6B627D00848BE7 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7A590D61F6B627D00848BE7 /* RootViewController.m */; };
-		A7C3E5AC1F6B7B2200BF48AA /* SYMessageView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7C3E5A91F6B7B2200BF48AA /* SYMessageView.m */; };
-		A7C3E5AD1F6B7B2200BF48AA /* SYNetworkStatusView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7C3E5AB1F6B7B2200BF48AA /* SYNetworkStatusView.m */; };
 		A7F2B8AC1BEDF5DF002346F4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F2B8AB1BEDF5DF002346F4 /* main.m */; };
 		A7F2B8AF1BEDF5DF002346F4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F2B8AE1BEDF5DF002346F4 /* AppDelegate.m */; };
 		A7F2B8B21BEDF5DF002346F4 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F2B8B11BEDF5DF002346F4 /* ViewController.m */; };
-		A7F2B8B51BEDF5DF002346F4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A7F2B8B31BEDF5DF002346F4 /* Main.storyboard */; };
 		A7F2B8B71BEDF5DF002346F4 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A7F2B8B61BEDF5DF002346F4 /* Images.xcassets */; };
 		A7F2B8BA1BEDF5DF002346F4 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = A7F2B8B81BEDF5DF002346F4 /* LaunchScreen.xib */; };
 		A7F2B8C61BEDF5DF002346F4 /* DemoNetworkStatusViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F2B8C51BEDF5DF002346F4 /* DemoNetworkStatusViewTests.m */; };
-		A7F2B8D91BEE5356002346F4 /* lock_normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F2B8D61BEE5356002346F4 /* lock_normal@2x.png */; };
-		A7F2B8DA1BEE5356002346F4 /* lock_right@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F2B8D71BEE5356002346F4 /* lock_right@2x.png */; };
-		A7F2B8DB1BEE5356002346F4 /* lock_wrong@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F2B8D81BEE5356002346F4 /* lock_wrong@2x.png */; };
 		A7F2B8DE1BEE6A25002346F4 /* StatusViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F2B8DD1BEE6A25002346F4 /* StatusViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -34,12 +36,18 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		A77CD36C1FC412A40065E96D /* SYMessageView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SYMessageView.h; sourceTree = "<group>"; };
+		A77CD36D1FC412A40065E96D /* SYMessageView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SYMessageView.m; sourceTree = "<group>"; };
+		A77CD36E1FC412A40065E96D /* UIView+Status.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+Status.h"; sourceTree = "<group>"; };
+		A77CD36F1FC412A40065E96D /* UIView+Status.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+Status.m"; sourceTree = "<group>"; };
+		A77CD3711FC412AC0065E96D /* status_failure@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "status_failure@2x.png"; sourceTree = "<group>"; };
+		A77CD3721FC412AC0065E96D /* status_failure@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "status_failure@3x.png"; sourceTree = "<group>"; };
+		A77CD3731FC412AC0065E96D /* status_NetworkWrong@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "status_NetworkWrong@2x.png"; sourceTree = "<group>"; };
+		A77CD3741FC412AC0065E96D /* status_NetworkWrong@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "status_NetworkWrong@3x.png"; sourceTree = "<group>"; };
+		A77CD3751FC412AC0065E96D /* status_Success@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "status_Success@2x.png"; sourceTree = "<group>"; };
+		A77CD3761FC412AC0065E96D /* status_Success@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "status_Success@3x.png"; sourceTree = "<group>"; };
 		A7A590D51F6B627D00848BE7 /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
 		A7A590D61F6B627D00848BE7 /* RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
-		A7C3E5A81F6B7B2200BF48AA /* SYMessageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SYMessageView.h; sourceTree = "<group>"; };
-		A7C3E5A91F6B7B2200BF48AA /* SYMessageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SYMessageView.m; sourceTree = "<group>"; };
-		A7C3E5AA1F6B7B2200BF48AA /* SYNetworkStatusView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SYNetworkStatusView.h; sourceTree = "<group>"; };
-		A7C3E5AB1F6B7B2200BF48AA /* SYNetworkStatusView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SYNetworkStatusView.m; sourceTree = "<group>"; };
 		A7F2B8A61BEDF5DF002346F4 /* DemoNetworkStatusView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DemoNetworkStatusView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A7F2B8AA1BEDF5DF002346F4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A7F2B8AB1BEDF5DF002346F4 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -47,15 +55,11 @@
 		A7F2B8AE1BEDF5DF002346F4 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		A7F2B8B01BEDF5DF002346F4 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		A7F2B8B11BEDF5DF002346F4 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		A7F2B8B41BEDF5DF002346F4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		A7F2B8B61BEDF5DF002346F4 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		A7F2B8B91BEDF5DF002346F4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		A7F2B8BF1BEDF5DF002346F4 /* DemoNetworkStatusViewTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DemoNetworkStatusViewTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A7F2B8C41BEDF5DF002346F4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A7F2B8C51BEDF5DF002346F4 /* DemoNetworkStatusViewTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DemoNetworkStatusViewTests.m; sourceTree = "<group>"; };
-		A7F2B8D61BEE5356002346F4 /* lock_normal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lock_normal@2x.png"; sourceTree = "<group>"; };
-		A7F2B8D71BEE5356002346F4 /* lock_right@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lock_right@2x.png"; sourceTree = "<group>"; };
-		A7F2B8D81BEE5356002346F4 /* lock_wrong@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lock_wrong@2x.png"; sourceTree = "<group>"; };
 		A7F2B8DC1BEE6A25002346F4 /* StatusViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatusViewController.h; sourceTree = "<group>"; };
 		A7F2B8DD1BEE6A25002346F4 /* StatusViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatusViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -78,16 +82,29 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		A7C3E5A71F6B7B2200BF48AA /* SYNetworkStatusView */ = {
+		A77CD36B1FC412A40065E96D /* SYStatusView */ = {
 			isa = PBXGroup;
 			children = (
-				A7C3E5A81F6B7B2200BF48AA /* SYMessageView.h */,
-				A7C3E5A91F6B7B2200BF48AA /* SYMessageView.m */,
-				A7C3E5AA1F6B7B2200BF48AA /* SYNetworkStatusView.h */,
-				A7C3E5AB1F6B7B2200BF48AA /* SYNetworkStatusView.m */,
+				A77CD36C1FC412A40065E96D /* SYMessageView.h */,
+				A77CD36D1FC412A40065E96D /* SYMessageView.m */,
+				A77CD36E1FC412A40065E96D /* UIView+Status.h */,
+				A77CD36F1FC412A40065E96D /* UIView+Status.m */,
 			);
-			name = SYNetworkStatusView;
-			path = ../../SYNetworkStatusView;
+			name = SYStatusView;
+			path = ../../SYStatusView;
+			sourceTree = "<group>";
+		};
+		A77CD3701FC412AC0065E96D /* StatusImages */ = {
+			isa = PBXGroup;
+			children = (
+				A77CD3711FC412AC0065E96D /* status_failure@2x.png */,
+				A77CD3721FC412AC0065E96D /* status_failure@3x.png */,
+				A77CD3731FC412AC0065E96D /* status_NetworkWrong@2x.png */,
+				A77CD3741FC412AC0065E96D /* status_NetworkWrong@3x.png */,
+				A77CD3751FC412AC0065E96D /* status_Success@2x.png */,
+				A77CD3761FC412AC0065E96D /* status_Success@3x.png */,
+			);
+			path = StatusImages;
 			sourceTree = "<group>";
 		};
 		A7F2B89D1BEDF5DF002346F4 = {
@@ -119,10 +136,8 @@
 				A7F2B8B11BEDF5DF002346F4 /* ViewController.m */,
 				A7F2B8DC1BEE6A25002346F4 /* StatusViewController.h */,
 				A7F2B8DD1BEE6A25002346F4 /* StatusViewController.m */,
-				A7C3E5A71F6B7B2200BF48AA /* SYNetworkStatusView */,
-				A7F2B8D61BEE5356002346F4 /* lock_normal@2x.png */,
-				A7F2B8D71BEE5356002346F4 /* lock_right@2x.png */,
-				A7F2B8D81BEE5356002346F4 /* lock_wrong@2x.png */,
+				A77CD3701FC412AC0065E96D /* StatusImages */,
+				A77CD36B1FC412A40065E96D /* SYStatusView */,
 				A7F2B8A91BEDF5DF002346F4 /* Supporting Files */,
 			);
 			path = DemoNetworkStatusView;
@@ -131,7 +146,6 @@
 		A7F2B8A91BEDF5DF002346F4 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				A7F2B8B31BEDF5DF002346F4 /* Main.storyboard */,
 				A7F2B8B61BEDF5DF002346F4 /* Images.xcassets */,
 				A7F2B8B81BEDF5DF002346F4 /* LaunchScreen.xib */,
 				A7F2B8AA1BEDF5DF002346F4 /* Info.plist */,
@@ -206,6 +220,7 @@
 				TargetAttributes = {
 					A7F2B8A51BEDF5DF002346F4 = {
 						CreatedOnToolsVersion = 6.2;
+						ProvisioningStyle = Manual;
 					};
 					A7F2B8BE1BEDF5DF002346F4 = {
 						CreatedOnToolsVersion = 6.2;
@@ -237,12 +252,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A7F2B8D91BEE5356002346F4 /* lock_normal@2x.png in Resources */,
-				A7F2B8DB1BEE5356002346F4 /* lock_wrong@2x.png in Resources */,
-				A7F2B8B51BEDF5DF002346F4 /* Main.storyboard in Resources */,
 				A7F2B8BA1BEDF5DF002346F4 /* LaunchScreen.xib in Resources */,
+				A77CD37D1FC413C50065E96D /* status_Success@2x.png in Resources */,
 				A7F2B8B71BEDF5DF002346F4 /* Images.xcassets in Resources */,
-				A7F2B8DA1BEE5356002346F4 /* lock_right@2x.png in Resources */,
+				A77CD37C1FC413C30065E96D /* status_NetworkWrong@3x.png in Resources */,
+				A77CD37A1FC413BE0065E96D /* status_failure@3x.png in Resources */,
+				A77CD3791FC413BA0065E96D /* status_failure@2x.png in Resources */,
+				A77CD37B1FC413C00065E96D /* status_NetworkWrong@2x.png in Resources */,
+				A77CD37E1FC413C70065E96D /* status_Success@3x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -260,13 +277,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A7C3E5AC1F6B7B2200BF48AA /* SYMessageView.m in Sources */,
+				A77CD3771FC4135D0065E96D /* SYMessageView.m in Sources */,
+				A77CD3781FC4135D0065E96D /* UIView+Status.m in Sources */,
 				A7A590D71F6B627D00848BE7 /* RootViewController.m in Sources */,
 				A7F2B8B21BEDF5DF002346F4 /* ViewController.m in Sources */,
 				A7F2B8AF1BEDF5DF002346F4 /* AppDelegate.m in Sources */,
 				A7F2B8DE1BEE6A25002346F4 /* StatusViewController.m in Sources */,
 				A7F2B8AC1BEDF5DF002346F4 /* main.m in Sources */,
-				A7C3E5AD1F6B7B2200BF48AA /* SYNetworkStatusView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -289,14 +306,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		A7F2B8B31BEDF5DF002346F4 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				A7F2B8B41BEDF5DF002346F4 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		A7F2B8B81BEDF5DF002346F4 /* LaunchScreen.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -342,7 +351,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -378,7 +387,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -390,8 +399,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = DemoNetworkStatusView/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -402,8 +412,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = DemoNetworkStatusView/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 1;

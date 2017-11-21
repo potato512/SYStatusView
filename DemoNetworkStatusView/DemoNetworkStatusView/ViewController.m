@@ -8,7 +8,6 @@
 
 #import "ViewController.h"
 #import "SYMessageView.h"
-#import "StatusViewController.h"
 
 @interface ViewController () <UITableViewDataSource, UITableViewDelegate>
 

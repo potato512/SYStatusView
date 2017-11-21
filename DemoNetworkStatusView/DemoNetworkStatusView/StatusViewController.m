@@ -7,13 +7,12 @@
 //
 
 #import "StatusViewController.h"
-#import "SYNetworkStatusView.h"
+#import "UIView+Status.h"
 
 @interface StatusViewController () <UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) NSArray *array;
-
-@property (nonatomic, strong) SYNetworkStatusView *statusView;
+@property (nonatomic, strong) UITableView *tableView;
 
 @end
 
@@ -62,18 +61,18 @@
     NSDictionary *dict06 = @{@"name":@"多图标+提示语开始", @"values":arrayRow};
     self.array = @[dict01, dict02, dict03, dict04, dict05, dict06];
     
-    UITableView *tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
-    [self.view addSubview:tableView];
-    tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
-    tableView.backgroundColor = [UIColor clearColor];
-    tableView.tableFooterView = [UIView new];
-    tableView.delegate = self;
-    tableView.dataSource = self;
+    self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
+    [self.view addSubview:_tableView];
+    _tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
+    _tableView.backgroundColor = [UIColor clearColor];
+    _tableView.tableFooterView = [UIView new];
+    _tableView.delegate = self;
+    _tableView.dataSource = self;
 }
 
 - (void)reloadClick
 {
-    [self.statusView loadSueccess];
+    [self.view statusViewLoadSuccess];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -114,36 +113,41 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
     if (0 == indexPath.section)
     {
-        self.statusView.sizeImage = CGSizeMake(80.0, 80.0);
-        [self.statusView reloadFrame:CGRectMake((self.view.frame.size.width - 200.0) / 2, 100.0, 200.0, 200.0)];
-        [self.statusView loadStart];
+        //
+        self.view.statusButtonFullScreen = NO;
+        self.view.statusAnimationTime = 1.2;
+//        self.view.statusView.frame = CGRectMake(0.0, 0.0, 200.0, 200.0);
+        self.view.statusMessageLabel.backgroundColor = [UIColor colorWithWhite:0.5 alpha:0.1];
+        self.view.statusMessageLabel.textColor = [UIColor blueColor];
+        [self.view.statusButton setTitle:@"reload" forState:UIControlStateNormal];
+        self.view.statusButton.layer.borderColor = [UIColor redColor].CGColor;
+        self.view.statusButton.frame = CGRectMake(0.0, 0.0, 200.0, 30.0);
+        self.view.statusViewAlignment = StatusViewAlignmentBottom;
+        
+        [self.view statusViewLoadStart];
     }
     else if (1 == indexPath.section)
     {
-        [self.statusView loadStart:nil image:@[[UIImage imageNamed:@"lock_normal"]]];
+        [self.view statusViewLoadStart:nil image:@[[UIImage imageNamed:@"status_Success"]]];
     }
     else if (2 == indexPath.section)
     {
-        [self.statusView.reloadButton setTitle:@"再次刷新" forState:UIControlStateNormal];
-        [self.statusView.reloadButton setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
-        [self.statusView.reloadButton setTitleColor:[UIColor yellowColor] forState:UIControlStateHighlighted];
-        self.statusView.messageLabel.textColor = [UIColor redColor];
-        [self.statusView loadStart:nil image:@[[UIImage imageNamed:@"lock_normal"], [UIImage imageNamed:@"lock_right"], [UIImage imageNamed:@"lock_wrong"]]];
+        [self.view statusViewLoadStart:nil image:@[[UIImage imageNamed:@"status_Success"], [UIImage imageNamed:@"status_failure"], [UIImage imageNamed:@"status_NetworkWrong"]]];
     }
     else if (3 == indexPath.section)
     {
-        [self.statusView loadStart:@"加载中..." image:nil];
+        [self.view statusViewLoadStart:@"loading..." image:nil];
     }
     else if (4 == indexPath.section)
     {
-        [self.statusView loadStart:@"加载中..." image:@[[UIImage imageNamed:@"lock_normal"]]];
+        [self.view statusViewLoadStart:@"loading..." image:@[[UIImage imageNamed:@"status_Success"]]];
     }
     else if (5 == indexPath.section)
     {
-        self.statusView.showButtonFullScreen = YES;
-        [self.statusView loadStart:@"加载中..." image:@[[UIImage imageNamed:@"lock_normal"], [UIImage imageNamed:@"lock_right"], [UIImage imageNamed:@"lock_wrong"]]];
+        [self.view statusViewLoadStart:@"loading..." image:@[[UIImage imageNamed:@"status_Success"], [UIImage imageNamed:@"status_failure"], [UIImage imageNamed:@"status_NetworkWrong"]]];
     }
     
     if (0 == indexPath.row)
@@ -241,51 +245,51 @@
 }
 
 
-- (SYNetworkStatusView *)statusView
-{
-    if (_statusView == nil)
-    {
-        _statusView = [[SYNetworkStatusView alloc] initWithView:self.view];
-    }
-    return _statusView;
-}
 
 - (void)resultSuccess
 {
-    [self.statusView loadSueccess];
+    [self.view statusViewLoadSuccess];
+//    [_tableView statusViewLoadSuccess];
 }
 
 - (void)resultSuccessWithoutDataImage
 {
-    [self.statusView loadSuccessWithoutData:nil image:@[[UIImage imageNamed:@"lock_normal"]]];
+    UIImage *image = [UIImage imageNamed:@"status_Success"];
+    NSArray *images = @[image];
+    [self.view statusViewLoadSuccessWithoutData:nil image:images];
+//    [_tableView statusViewLoadSuccessWithoutData:nil image:images];
 }
 
 - (void)resultSuccessWithoutDataImages
 {
-    self.statusView.animationTime = 1.0;
-    [self.statusView loadSuccessWithoutData:nil image:@[[UIImage imageNamed:@"lock_normal"], [UIImage imageNamed:@"lock_right"], [UIImage imageNamed:@"lock_wrong"]]];
+    NSArray *images = @[[UIImage imageNamed:@"status_failure"], [UIImage imageNamed:@"status_Success"], [UIImage imageNamed:@"status_NetworkWrong"]];
+    [self.view statusViewLoadSuccessWithoutData:nil image:images];
+//    [_tableView statusViewLoadSuccessWithoutData:nil image:images];
 }
 
 - (void)resultSuccessWithoutDataMessage
 {
-    [self.statusView loadSuccessWithoutData:@"没有数据" image:nil];
+    [self.view statusViewLoadSuccessWithoutData:@"nothing..." image:nil];
+//    [_tableView statusViewLoadSuccessWithoutData:@"nothing..." image:nil];
 }
 
 - (void)resultSuccessWithoutDataImageMessage
 {
-    [self.statusView loadSuccessWithoutData:@"没有数据" image:@[[UIImage imageNamed:@"lock_normal"]]];
+    NSArray *images = @[[UIImage imageNamed:@"status_failure"]];
+    [self.view statusViewLoadSuccessWithoutData:@"nothing..." image:images];
 }
 
 - (void)resultSuccessWithoutDataImagesMessage
 {
-    [self.statusView loadSuccessWithoutData:@"没有数据" image:@[[UIImage imageNamed:@"lock_normal"], [UIImage imageNamed:@"lock_right"], [UIImage imageNamed:@"lock_wrong"]]];
+    NSArray *images = @[[UIImage imageNamed:@"status_failure"], [UIImage imageNamed:@"status_Success"], [UIImage imageNamed:@"status_NetworkWrong"]];
+    [self.view statusViewLoadSuccessWithoutData:@"nothing..." image:images];
 }
 
 - (void)resultSuccessWithoutDataReload
 {
     StatusViewController __weak *selfWeak = self;
     
-    [self.statusView loadSuccessWithoutData:nil image:nil click:^{
+    [self.view statusViewLoadSuccessWithoutData:nil image:nil click:^{
         [selfWeak performSelector:@selector(resultSuccess) withObject:nil afterDelay:3.0];
     }];
 }
@@ -294,7 +298,8 @@
 {
     StatusViewController __weak *selfWeak = self;
     
-    [self.statusView loadSuccessWithoutData:nil image:@[[UIImage imageNamed:@"lock_normal"]] click:^{
+    NSArray *images = @[[UIImage imageNamed:@"status_failure"]];
+    [self.view statusViewLoadSuccessWithoutData:nil image:images click:^{
         [selfWeak performSelector:@selector(resultSuccess) withObject:nil afterDelay:3.0];
     }];
 }
@@ -303,7 +308,8 @@
 {
     StatusViewController __weak *selfWeak = self;
     
-    [self.statusView loadSuccessWithoutData:nil image:@[[UIImage imageNamed:@"lock_normal"], [UIImage imageNamed:@"lock_right"], [UIImage imageNamed:@"lock_wrong"]] click:^{
+    NSArray *images = @[[UIImage imageNamed:@"status_failure"], [UIImage imageNamed:@"status_Success"], [UIImage imageNamed:@"status_NetworkWrong"]];
+    [self.view statusViewLoadSuccessWithoutData:nil image:images click:^{
         [selfWeak performSelector:@selector(resultSuccess) withObject:nil afterDelay:3.0];
     }];
 }
@@ -312,7 +318,7 @@
 {
     StatusViewController __weak *selfWeak = self;
     
-    [self.statusView loadSuccessWithoutData:@"没有数据" image:nil click:^{
+    [self.view statusViewLoadSuccessWithoutData:@"nothing..." image:nil click:^{
         [selfWeak performSelector:@selector(resultSuccess) withObject:nil afterDelay:3.0];
     }];
 }
@@ -321,7 +327,8 @@
 {
     StatusViewController __weak *selfWeak = self;
     
-    [self.statusView loadSuccessWithoutData:@"没有数据" image:@[[UIImage imageNamed:@"lock_normal"]] click:^{
+    NSArray *images = @[[UIImage imageNamed:@"status_failure"]];
+    [self.view statusViewLoadSuccessWithoutData:@"nothing..." image:images click:^{
         [selfWeak performSelector:@selector(resultSuccess) withObject:nil afterDelay:3.0];
     }];
 }
@@ -330,41 +337,46 @@
 {
     StatusViewController __weak *selfWeak = self;
     
-    [self.statusView loadSuccessWithoutData:@"没有数据" image:@[[UIImage imageNamed:@"lock_normal"], [UIImage imageNamed:@"lock_right"], [UIImage imageNamed:@"lock_wrong"]] click:^{
+    NSArray *images = @[[UIImage imageNamed:@"status_failure"], [UIImage imageNamed:@"status_Success"], [UIImage imageNamed:@"status_NetworkWrong"]];
+    [self.view statusViewLoadSuccessWithoutData:@"nothing..." image:images click:^{
         [selfWeak performSelector:@selector(resultSuccess) withObject:nil afterDelay:3.0];
     }];
 }
 
 - (void)resultFaileImage
 {
-    [self.statusView loadFailue:nil image:@[[UIImage imageNamed:@"lock_normal"]]];
+    NSArray *images = @[[UIImage imageNamed:@"status_failure"]];
+    [self.view statusViewLoadFailue:nil image:images];
 }
 
 - (void)resultFaileImages
 {
-    [self.statusView loadFailue:nil image:@[[UIImage imageNamed:@"lock_normal"], [UIImage imageNamed:@"lock_right"], [UIImage imageNamed:@"lock_wrong"]]];
+    NSArray *images = @[[UIImage imageNamed:@"status_failure"], [UIImage imageNamed:@"status_Success"], [UIImage imageNamed:@"status_NetworkWrong"]];
+    [self.view statusViewLoadFailue:nil image:images];
 }
 
 - (void)resultFaileMessage
 {
-    [self.statusView loadFailue:@"加载失败" image:nil];
+    [self.view statusViewLoadFailue:@"fauile..." image:nil];
 }
 
 - (void)resultFaileImageMessage
 {
-    [self.statusView loadFailue:@"加载失败" image:@[[UIImage imageNamed:@"lock_normal"]]];
+    NSArray *images = @[[UIImage imageNamed:@"status_failure"]];
+    [self.view statusViewLoadFailue:@"fauile..." image:images];
 }
 
 - (void)resultFaileImagesMessage
 {
-    [self.statusView loadFailue:@"加载失败" image:@[[UIImage imageNamed:@"lock_normal"], [UIImage imageNamed:@"lock_right"], [UIImage imageNamed:@"lock_wrong"]]];
+    NSArray *images = @[[UIImage imageNamed:@"status_failure"], [UIImage imageNamed:@"status_Success"], [UIImage imageNamed:@"status_NetworkWrong"]];
+    [self.view statusViewLoadFailue:@"fauile..." image:images];
 }
 
 - (void)resultFaileReload
 {
     StatusViewController __weak *selfWeak = self;
     
-    [self.statusView loadFailue:nil image:nil click:^{
+    [self.view statusViewLoadFailue:nil image:nil click:^{
         [selfWeak performSelector:@selector(resultSuccess) withObject:nil afterDelay:3.0];
     }];
 }
@@ -373,7 +385,8 @@
 {
     StatusViewController __weak *selfWeak = self;
     
-    [self.statusView loadFailue:nil image:@[[UIImage imageNamed:@"lock_normal"]] click:^{
+    NSArray *images = @[[UIImage imageNamed:@"status_failure"]];
+    [self.view statusViewLoadFailue:nil image:images click:^{
         [selfWeak performSelector:@selector(resultSuccess) withObject:nil afterDelay:3.0];
     }];
 }
@@ -382,7 +395,8 @@
 {
     StatusViewController __weak *selfWeak = self;
     
-    [self.statusView loadFailue:nil image:@[[UIImage imageNamed:@"lock_normal"], [UIImage imageNamed:@"lock_right"], [UIImage imageNamed:@"lock_wrong"]] click:^{
+    NSArray *images = @[[UIImage imageNamed:@"status_failure"], [UIImage imageNamed:@"status_Success"], [UIImage imageNamed:@"status_NetworkWrong"]];
+    [self.view statusViewLoadFailue:nil image:images click:^{
         [selfWeak performSelector:@selector(resultSuccess) withObject:nil afterDelay:3.0];
     }];
 }
@@ -391,7 +405,7 @@
 {
     StatusViewController __weak *selfWeak = self;
     
-    [self.statusView loadFailue:@"加载失败" image:nil click:^{
+    [self.view statusViewLoadFailue:@"fauile..." image:nil click:^{
         [selfWeak performSelector:@selector(resultSuccess) withObject:nil afterDelay:3.0];
     }];
 }
@@ -400,7 +414,8 @@
 {
     StatusViewController __weak *selfWeak = self;
     
-    [self.statusView loadFailue:@"加载失败" image:@[[UIImage imageNamed:@"lock_normal"]] click:^{
+    NSArray *images = @[[UIImage imageNamed:@"status_failure"]];
+    [self.view statusViewLoadFailue:@"fauile..." image:images click:^{
         [selfWeak performSelector:@selector(resultSuccess) withObject:nil afterDelay:3.0];
     }];
 }
@@ -408,8 +423,9 @@
 - (void)resultFaileReloadImagesMessage
 {
     StatusViewController __weak *selfWeak = self;
-    
-    [self.statusView loadFailue:@"加载失败" image:@[[UIImage imageNamed:@"lock_normal"], [UIImage imageNamed:@"lock_right"], [UIImage imageNamed:@"lock_wrong"]] click:^{
+
+    NSArray *images = @[[UIImage imageNamed:@"status_failure"], [UIImage imageNamed:@"status_Success"], [UIImage imageNamed:@"status_NetworkWrong"]];
+    [self.view statusViewLoadFailue:@"fauile..." image:images click:^{
         [selfWeak performSelector:@selector(resultSuccess) withObject:nil afterDelay:3.0];
     }];
 }

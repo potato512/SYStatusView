@@ -20,70 +20,75 @@
 使用说明
 ~~~ javascript
 // 导入头文件
-#import "SYNetworkStatusView.h"
-~~~ 
-
-~~~ javascript
-// 实例化
-SYNetworkStatusView *statusView = [[SYNetworkStatusView alloc] initWithView:self.view];
+#import "UIView+Status.h"
 ~~~ 
 
 ~~~ javascript
 // 属性设置
-// 设置图标大小
-statusView.sizeImage = CGSizeMake(80.0, 80.0);
+// 是否全屏范围可点击
+self.view.statusButtonFullScreen = NO;
 
-// 重新开始按钮是否全屏
-statusView.showButtonFullScreen = YES;
+// 多图时动画时间
+self.view.statusAnimationTime = 1.2;
 
-// 多图时的动画时间
-statusView.animationTime = 1.0;
+// 重置位置大小
+self.view.statusView.frame = CGRectMake(0.0, 0.0, 200.0, 200.0);
 
-// 重新开始按钮属性设置
-[statusView.reloadButton setTitle:@"再次刷新" forState:UIControlStateNormal];
-[statusView.reloadButton setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
-[statusView.reloadButton setTitleColor:[UIColor yellowColor] forState:UIControlStateHighlighted];
+// 提示标签属性设置
+self.view.statusMessageLabel.backgroundColor = [UIColor colorWithWhite:0.5 alpha:0.1];
+self.view.statusMessageLabel.textColor = [UIColor blueColor];
 
-// 信息标签属性设置
-statusView.messageLabel.textColor = [UIColor redColor];
+// 重新刷新按钮属性设置
+[self.view.statusButton setTitle:@"reload" forState:UIControlStateNormal];
+self.view.statusButton.layer.borderColor = [UIColor redColor].CGColor;
+self.view.statusButton.frame = CGRectMake(0.0, 0.0, 200.0, 30.0);
+
+// 对齐方式
+self.view.statusViewAlignment = StatusViewAlignmentBottom;
 ~~~ 
 
 ~~~ javascript
 // 默认菊花转请求
-[statusView loadStart];
+[self.view statusViewLoadStart];
 
 // 自定义单图标、提示语请求
-[statusView statusloadStartCustom:@"loading..." image:[UIImage imageNamed:@"lock_normal"]];
+[self.view statusViewLoadStart:@"loading..." image:@[[UIImage imageNamed:@"status_Success"]]];
 
 // 自定义多图标、提示语请求
-[statusView loadStart:@"加载中..." image:@[[UIImage imageNamed:@"lock_normal"], [UIImage imageNamed:@"lock_right"], [UIImage imageNamed:@"lock_wrong"]]];
+[self.view statusViewLoadStart:@"loading..." image:@[[UIImage imageNamed:@"status_Success"], [UIImage imageNamed:@"status_failure"], [UIImage imageNamed:@"status_NetworkWrong"]]];
 ~~~ 
 
 ~~~ javascript
 // 加载成功
-[statusView loadSueccess];
+[self.view statusViewLoadSuccess];
 
 // 加载成功，没有数据时，自定义单图标、提示语
-[statusView loadSuccessWithoutData:@"没有数据" image:@[[UIImage imageNamed:@"lock_normal"]]];
+[self.view statusViewLoadSuccessWithoutData:@"没有数据" image:@[[UIImage imageNamed:@"lock_normal"]]];
 
 // 加载成功，没有数据时，自定义多图标、提示语、重新请求
-[statusView loadSuccessWithoutData:@"没有数据" image:@[[UIImage imageNamed:@"lock_normal"], [UIImage imageNamed:@"lock_right"], [UIImage imageNamed:@"lock_wrong"]] click:^{
+[self.view statusViewLoadSuccessWithoutData:@"没有数据" image:@[[UIImage imageNamed:@"lock_normal"], [UIImage imageNamed:@"lock_right"], [UIImage imageNamed:@"lock_wrong"]] click:^{
 
 }];
 ~~~ 
 
 ~~~ javascript
 // 加载失败，自定义图标、提示语
-[statusView loadFailue:@"加载失败" image:@[[UIImage imageNamed:@"lock_normal"]]];
+[self.view statusViewLoadFailue:@"加载失败" image:@[[UIImage imageNamed:@"lock_normal"]]];
 
 // 加载失败，自定义图标、提示语、重新请求
-[statusView loadFailue:@"加载失败" image:@[[UIImage imageNamed:@"lock_normal"], [UIImage imageNamed:@"lock_right"], [UIImage imageNamed:@"lock_wrong"]] click:^{
+[self.view statusViewLoadFailue:@"加载失败" image:@[[UIImage imageNamed:@"lock_normal"], [UIImage imageNamed:@"lock_right"], [UIImage imageNamed:@"lock_wrong"]] click:^{
 
 }];
 ~~~
 
 
 ## 修改完善
+* 20171121
+  * 版本号：
+  * 功能逻辑修改
+    * 修改成UIView类扩展方法实现，便于所有UIView子类使用
+    * 新增对齐属性：顶端对齐、居中对齐、底端对齐
+
 * 20170915
   * 版本号：1.1.0
   * 新增重置位置大小方法
