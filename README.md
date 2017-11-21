@@ -84,7 +84,7 @@ self.view.statusViewAlignment = StatusViewAlignmentBottom;
 
 ## 修改完善
 * 20171121
-  * 版本号：
+  * 版本号：1.2.0
   * 功能逻辑修改
     * 修改成UIView类扩展方法实现，便于所有UIView子类使用
     * 新增对齐属性：顶端对齐、居中对齐、底端对齐
