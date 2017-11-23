@@ -13,3 +13,5 @@
   s.requires_arc        = true
 
   s.frameworks = 'UIKit'
+
+  end
