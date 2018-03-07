@@ -9,7 +9,8 @@
   s.platform     = :ios, '5.0'    #支持的系统
   s.source       = { :git => "https://github.com/potato512/SYStatusView.git", :tag => "1.2.0" }   #源码地址
   s.source_files  = 'SYStatusView/*.{h,m}'    #源码
-  s.frameworks = 'CoreGraphics', 'CoreFoundation'  #framework
   s.requires_arc = true       #是否需要arc
+
+  s.frameworks = 'UIKit'
 
   end
