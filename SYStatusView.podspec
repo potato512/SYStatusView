@@ -1,17 +1,15 @@
   Pod::Spec.new do |s|
 
-  s.name                = "SYStatusView"
-  s.version             = "1.2.0"
-  s.summary             = "SYStatusView is using for the status of the view, just like loading, or loaded success, or loaded fauiled, etc."
-  s.homepage            = "https://github.com/potato512/SYStatusView"
-  s.license             = { :type => "MIT", :file => "LICENSE" }
-  s.author              = { "herman" => "zhangsy757@163.com" }
-  s.platform            = :ios, "8.0"
-  s.source              = { :git => "https://github.com/potato512/SYStatusView.git", :tag => s.version.to_s }
-  s.source_files        = "SYStatusView/*.{h}", "SYStatusView/*.{h,m}"
-  s.public_header_files = "SYStatusView/*.{h}"
-  s.requires_arc        = true
-
-  s.frameworks = 'UIKit'
+  s.name         = "SYStatusView"   #名称
+  s.version      = "1.2.0"          #版本号
+  s.summary      = "有大量的类别和UI组件方便构建工程"  #描述
+  s.homepage     = "https://github.com/potato512/SYStatusView" #描述页面
+  s.license      = 'MIT'    #版权声明
+  s.author       = { "herman" => "zhangsy757@163.com" }  #作者
+  s.platform     = :ios, '5.0'    #支持的系统
+  s.source       = { :git => "https://github.com/potato512/SYStatusView.git", :tag => "1.2.0" }   #源码地址
+  s.source_files  = 'SYStatusView/*.{h,m}'    #源码
+  s.frameworks = 'CoreGraphics', 'CoreFoundation'  #framework
+  s.requires_arc = true       #是否需要arc
 
   end
