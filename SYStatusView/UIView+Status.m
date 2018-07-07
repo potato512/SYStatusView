@@ -266,6 +266,7 @@ static CGFloat const sizeItem = 70.0;
         self.backView.backgroundColor = self.backgroundColor;
         
         self.backView.frame = self.bounds;
+        self.backView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
     }
 }
 
