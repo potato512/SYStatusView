@@ -40,8 +40,7 @@ static CGFloat const originYStatus = 64.0;
     static SYMessageView *statusView = nil;
     static dispatch_once_t predicate;
     
-    if (statusView == nil)
-    {
+    if (statusView == nil) {
         dispatch_once(&predicate, ^{
             statusView = [[self alloc] init];
         });
@@ -55,8 +54,7 @@ static CGFloat const originYStatus = 64.0;
 - (instancetype)init
 {
     self = [super init];
-    if (self)
-    {
+    if (self) {
         _colorForBackground = [UIColor colorWithWhite:0.0 alpha:0.5];
     }
     return self;
@@ -102,8 +100,7 @@ static CGFloat const originYStatus = 64.0;
 - (void)show:(NSString *)message image:(UIImage *)image
 {
     UIView *currentView = nil;
-    if (image)
-    {
+    if (image) {
         self.imageView.hidden = NO;
         
         self.imageView.frame = CGRectMake(originXY, originXY, (CGRectGetHeight(self.bounds) - originXY * 2), (CGRectGetHeight(self.bounds) - originXY * 2));
@@ -117,8 +114,7 @@ static CGFloat const originYStatus = 64.0;
     }
     
     self.messagelabel.frame = CGRectMake((currentView.frame.origin.x + currentView.frame.size.width + originXY), 0.0, (CGRectGetWidth(self.bounds) - (currentView.frame.origin.x + currentView.frame.size.width + originXY) - originXY), CGRectGetHeight(self.bounds));
-    if (!self.messagelabel.superview)
-    {
+    if (self.messagelabel.superview == nil) {
         [self addSubview:self.messagelabel];
     }
     self.messagelabel.text = message;
@@ -128,12 +124,9 @@ static CGFloat const originYStatus = 64.0;
     CGFloat widthMessage = sizeMessage.width;
     CGFloat widthMax = (CGRectGetWidth(self.bounds) - originXY * 3 - currentView.frame.size.width);
     
-    if (!image)
-    {
+    if (image == nil) {
         self.imageView.hidden = YES;
-        
         widthMax = (CGRectGetWidth(self.bounds) - originXY * 2);
-     
         self.messagelabel.textAlignment = NSTextAlignmentCenter;
     }
 
@@ -142,8 +135,7 @@ static CGFloat const originYStatus = 64.0;
     rectlabel.size.width = widthMessage;
     self.messagelabel.frame = rectlabel;
     
-    if (PositionTop != self.positionMode)
-    {
+    if (PositionTop != self.positionMode) {
         CGRect rectlabel = self.messagelabel.frame;
         rectlabel.size.width = widthMessage;
         self.messagelabel.frame = rectlabel;
@@ -156,8 +148,7 @@ static CGFloat const originYStatus = 64.0;
         self.frame = rectSelf;
     }
     
-    if (self.animation)
-    {
+    if (self.animation) {
         self.alpha = 0.0;
         self.hidden = NO;
         
@@ -166,9 +157,7 @@ static CGFloat const originYStatus = 64.0;
         } completion:^(BOOL finished) {
             [self performSelector:@selector(hidden) withObject:nil afterDelay:delayTime];
         }];
-    }
-    else
-    {
+    } else {
         self.alpha = 1.0;
         self.hidden = NO;
         [self performSelector:@selector(hidden) withObject:nil afterDelay:delayTime];
@@ -179,16 +168,13 @@ static CGFloat const originYStatus = 64.0;
 
 - (void)hidden
 {
-    if (self.animation)
-    {
+    if (self.animation) {
         [UIView animateWithDuration:self.animationTime animations:^{
             self.alpha = 0.0;
         } completion:^(BOOL finished) {
             self.hidden = YES;
         }];
-    }
-    else
-    {
+    } else {
         self.alpha = 0.0;
         self.hidden = YES;
     }
@@ -202,8 +188,7 @@ static CGFloat const originYStatus = 64.0;
     
     CGRect rectSelf = self.frame;
     
-    if (PositionTop == _positionMode)
-    {
+    if (PositionTop == _positionMode) {
         rectSelf.origin.x = 0.0;
         CGFloat originY = (self.isWindow ? (originYStatus + 0.0) : 0.0);
         rectSelf.origin.y = originY;
@@ -211,19 +196,13 @@ static CGFloat const originYStatus = 64.0;
         
         self.layer.cornerRadius = 0.0;
         self.layer.masksToBounds = NO;
-    }
-    else if (PositionTopRountAdjust == _positionMode)
-    {
+    } else if (PositionTopRountAdjust == _positionMode) {
         CGFloat originY = (self.isWindow ? (originYStatus + originXY) : originXY);
         rectSelf.origin.y = originY;
-    }
-    else if (PositionCenterRountAdjust == _positionMode)
-    {
+    } else if (PositionCenterRountAdjust == _positionMode) {
         CGFloat originY = ((CGRectGetHeight(self.superView.bounds) - heightStatusView) / 2);
         rectSelf.origin.y = originY;
-    }
-    else if (PositionBottomRountAdjust == _positionMode)
-    {
+    } else if (PositionBottomRountAdjust == _positionMode) {
         CGFloat originY = ((CGRectGetHeight(self.superView.bounds) - heightStatusView) - originYStatus);
         rectSelf.origin.y = originY;
     }
@@ -235,8 +214,7 @@ static CGFloat const originYStatus = 64.0;
 
 - (UITapGestureRecognizer *)tapRecognizer
 {
-    if (_tapRecognizer == nil)
-    {
+    if (_tapRecognizer == nil) {
         _tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hidden)];
     }
     return _tapRecognizer;
@@ -244,8 +222,7 @@ static CGFloat const originYStatus = 64.0;
 
 - (UILabel *)messagelabel
 {
-    if (!_messagelabel)
-    {
+    if (_messagelabel == nil) {
         _messagelabel = [[UILabel alloc] init];
         _messagelabel.backgroundColor = [UIColor clearColor];
     }
@@ -255,8 +232,7 @@ static CGFloat const originYStatus = 64.0;
 
 - (UIImageView *)imageView
 {
-    if (!_imageView)
-    {
+    if (_imageView == nil) {
         _imageView = [[UIImageView alloc] init];
         _imageView.contentMode = UIViewContentModeScaleAspectFit;
         _imageView.backgroundColor = [UIColor clearColor];

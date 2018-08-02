@@ -33,16 +33,24 @@ typedef NS_ENUM(NSInteger, StatusViewAlignment)
 /// 多图时的动画时间（默认：0.6）
 @property (nonatomic, assign) NSTimeInterval statusAnimationTime;
 
+/// 状态视图
 @property (nonatomic, strong, readonly) UIView *statusView;
+/// 状态菊花转视图
 @property (nonatomic, strong, readonly) UIActivityIndicatorView *statusActivityView;
+/// 状态图标视图
 @property (nonatomic, strong, readonly) UIImageView *statusImageView;
+/// 状态信息标签
 @property (nonatomic, strong, readonly) UILabel *statusMessageLabel;
+/// 状态按钮
 @property (nonatomic, strong, readonly) UIButton *statusButton;
+
+#pragma mark - 开始
 
 /**
  *  开始（默认：菊花转）
  */
 - (void)statusViewLoadStart;
+
 /**
  *  开始（自定义：提示语、图标）
  *
@@ -51,10 +59,13 @@ typedef NS_ENUM(NSInteger, StatusViewAlignment)
  */
 - (void)statusViewLoadStart:(NSString *)message image:(NSArray <UIImage *> *)images;
 
+#pragma mark - 成功
+
 /**
  *  结束，加载成功（默认：无提示语、无图标）
  */
 - (void)statusViewLoadSuccess;
+
 /**
  *  结束，加载成功，无数据（自定义：提示语、图标；无重新加载）
  *
@@ -62,6 +73,7 @@ typedef NS_ENUM(NSInteger, StatusViewAlignment)
  *  @param images  图标数组
  */
 - (void)statusViewLoadSuccessWithoutData:(NSString *)message image:(NSArray <UIImage *> *)images;
+
 /**
  *  结束，加载成功，无数据（自定义：提示语、图标；重新加载）
  *
@@ -71,6 +83,8 @@ typedef NS_ENUM(NSInteger, StatusViewAlignment)
  */
 - (void)statusViewLoadSuccessWithoutData:(NSString *)message image:(NSArray <UIImage *> *)images click:(void (^)(void))click;
 
+#pragma mark - 失败
+
 /**
  *  结束，加载失败（自定义：提示语、图标；无重新加载）
  *
@@ -78,6 +92,7 @@ typedef NS_ENUM(NSInteger, StatusViewAlignment)
  *  @param images  图标数组
  */
 - (void)statusViewLoadFailue:(NSString *)message image:(NSArray <UIImage *> *)images;
+
 /**
  *  结束，加载失败（自定义：提示语、图标；重新加载）
  *

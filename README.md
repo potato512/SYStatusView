@@ -18,12 +18,12 @@
 ![image](./image.gif)
 
 使用说明
-~~~ javascript
+```
 // 导入头文件
 #import "UIView+Status.h"
-~~~ 
+```
 
-~~~ javascript
+```
 // 属性设置
 // 是否全屏范围可点击
 self.view.statusButtonFullScreen = NO;
@@ -45,9 +45,9 @@ self.view.statusButton.frame = CGRectMake(0.0, 0.0, 200.0, 30.0);
 
 // 对齐方式
 self.view.statusViewAlignment = StatusViewAlignmentBottom;
-~~~ 
+```
 
-~~~ javascript
+```
 // 默认菊花转请求
 [self.view statusViewLoadStart];
 
@@ -56,9 +56,9 @@ self.view.statusViewAlignment = StatusViewAlignmentBottom;
 
 // 自定义多图标、提示语请求
 [self.view statusViewLoadStart:@"loading..." image:@[[UIImage imageNamed:@"status_Success"], [UIImage imageNamed:@"status_failure"], [UIImage imageNamed:@"status_NetworkWrong"]]];
-~~~ 
+```
 
-~~~ javascript
+```
 // 加载成功
 [self.view statusViewLoadSuccess];
 
@@ -69,9 +69,9 @@ self.view.statusViewAlignment = StatusViewAlignmentBottom;
 [self.view statusViewLoadSuccessWithoutData:@"没有数据" image:@[[UIImage imageNamed:@"lock_normal"], [UIImage imageNamed:@"lock_right"], [UIImage imageNamed:@"lock_wrong"]] click:^{
 
 }];
-~~~ 
+```
 
-~~~ javascript
+```
 // 加载失败，自定义图标、提示语
 [self.view statusViewLoadFailue:@"加载失败" image:@[[UIImage imageNamed:@"lock_normal"]]];
 
@@ -79,10 +79,14 @@ self.view.statusViewAlignment = StatusViewAlignmentBottom;
 [self.view statusViewLoadFailue:@"加载失败" image:@[[UIImage imageNamed:@"lock_normal"], [UIImage imageNamed:@"lock_right"], [UIImage imageNamed:@"lock_wrong"]] click:^{
 
 }];
-~~~
+```
 
 
 ## 修改完善
+* 20180802 
+  * 版本号：1.2.1
+  * 修改完善
+  
 * 20171121
   * 版本号：1.2.0
   * 功能逻辑修改

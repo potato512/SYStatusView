@@ -29,7 +29,9 @@ typedef NS_ENUM(NSInteger, PositionMode)
 /// 单例
 + (instancetype)shareManager;
 
+/// 背景颜色
 @property (nonatomic, strong) UIColor *colorForBackground;
+/// 信息标签
 @property (nonatomic, strong) UILabel *messageLabel;
 
 /// 显示状态提示（父视图、位置、提示语、图标、动画时间、动画显示）
